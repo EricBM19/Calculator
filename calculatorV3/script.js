@@ -46,7 +46,6 @@ EQUAL.addEventListener('click', function()
 CLEAR.addEventListener('click', function()
 {
     clearDisplay();
-    updateDisplay();
 })
 
 ERASE.addEventListener('click', function()
@@ -134,7 +133,7 @@ function selectOperation(operator)
         operationText = operator.toString();
         enableNumberButtons();
         
-        console.log('Antes 1:' + firstOperator + ' 2:' + secondOperator );
+
         selectOperatorColor(operationText);
         secondOperator = firstOperator;
         firstOperator = '';
@@ -149,22 +148,22 @@ function selectOperation(operator)
 
 function calculate()
 {
-    const FIRST = parseFloat(secondOperator);
-    const SECOND = parseFloat(firstOperator);
-    if(isNaN(FIRST) || isNaN(SECOND)) return;
+    const OPERATOR = parseFloat(secondOperator);
+    const SECOND_OPERATOR = parseFloat(firstOperator);
+    if(isNaN(OPERATOR) || isNaN(SECOND_OPERATOR)) return;
     switch(operationText)
     {
         case '+':
-            result = FIRST + SECOND;
+            result = OPERATOR + SECOND_OPERATOR;
             break;
         case '-':
-            result = FIRST - SECOND;
+            result = OPERATOR - SECOND_OPERATOR;
             break;
         case '*':
-            result = FIRST * SECOND;
+            result = OPERATOR * SECOND_OPERATOR;
             break;
         case '/':
-            result = FIRST / SECOND;
+            result = OPERATOR / SECOND_OPERATOR;
             break;
         default:
             return;
@@ -222,6 +221,7 @@ function clearDisplay()
    disableSignChange();
    clearOperatorColor(operationText);
    enableComma();
+   display.value = '0';
    firstOperator = '';
    secondOperator = '';
    result = null;
@@ -258,7 +258,7 @@ function eraseNumber()
 
 function changeSign()
 {
-    if(firstOperator == '')
+    if(firstOperator == '' || firstOperator == '0' || firstOperator == '0.')
     {
         disableSignChange();
     }
